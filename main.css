@@ -1,0 +1,19 @@
+.page-wrap{
+    max-width:768px;
+    margin: 0 auto;
+    padding: 1em;
+  }
+  
+  #myForm{
+    padding: 1em;
+    background-color: #f7f7f7;
+  }
+  
+  /* this one is for later when we add bookmarks to our UI*/
+  .card{
+    margin-bottom: 1em;
+  }
+  .row{
+    margin: 0 !important;
+    padding: 1em !important;
+  }
