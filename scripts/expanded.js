@@ -1,5 +1,5 @@
 
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 const store = {
     bookmarks: [
@@ -19,12 +19,10 @@ const store = {
 
 
 
-  
-  $( function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  } );
+  function showDescription(){
+
+  }
+
  
 
 
