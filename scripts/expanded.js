@@ -1,5 +1,5 @@
 
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 const store = {
     bookmarks: [
