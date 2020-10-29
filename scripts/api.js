@@ -6,3 +6,19 @@ import $ from 'jquery';
   let patch = `${BASE_URL}/Lili/bookmarks/`; // give each bookmark a cuid
   let deleteIt = `${BASE_URL}/Lili/bookmarks`;
 
+function getBookmark(){
+  fetch(get)
+.then(response => response.json())
+.then(responseJson => 
+  $('#bookmarkList').html(responseJson));
+}
+
+function watchForm() {
+  $('#addBookmark').click(event => {
+    event.preventDefault();
+    getBookmark();
+
+  });
+}
+
+$(watchForm);

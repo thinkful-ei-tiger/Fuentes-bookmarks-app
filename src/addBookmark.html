@@ -10,7 +10,10 @@
 
     <h1>Bookmarks</h1>
     <div>
+      <div>
+        <input type="text" placeholder="Site Name"><br><br>
         <input type="text" width="200px" placeholder="https://">
+      </div>  
         <div class="rating">
               <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
               <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
@@ -22,20 +25,22 @@
 
         <div id="listContainer" class="listContainer">
 
-            <div id="bookmarkList" class="listDisplay">
-                <ul>
+            <div class="listDisplay">
+                <ul id="bookmarkList" >
                     
                 </ul>
             </div>
-              <button id="cancel">Cancel</button>
-              <button id="submit">Add Bookmark</button>
+              <button id="cancel"><a href="/src/index.html">Cancel</a></button>
+              <button id="addBookmark">Add Bookmark</button>
+            
         </div>
 
 
     </div>
   
   </body>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js%22%3E"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
-  <script src="/scripts/adding.js"></script>
+  <script src="/scripts/adding.js" type="module"></script>
+  <script src="/scripts/api.js" type="module"></script>
 </html>
