@@ -2,45 +2,46 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Bookmarks</title>
+    <link rel="icon" href="/src/images/bookmark.png">
+    <title>Add A Bookmark</title>
     <link href="main.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   </head>
   <body>
 
-    <h1>Bookmarks</h1>
+    <h1>New Bookmark</h1>
     <div>
-      <div>
-        <input type="text" placeholder="Site Name"><br><br>
-        <input type="text" width="200px" placeholder="https://">
-      </div>  
-        <div class="rating">
-              <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
-              <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-              <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-              <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-              <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
-            </div>
-
-
-        <div id="listContainer" class="listContainer">
-
-            <div class="listDisplay">
-                <ul id="bookmarkList" >
-                    
-                </ul>
-            </div>
-              <button id="cancel"><a href="/src/index.html">Cancel</a></button>
+      <div id="listContainer" class="listContainer">
+        <div>
+          <form method="post">
+            <fieldset>
+              <legend>New Bookmark</legend>
+              <label for="siteName">Site Name:</label>
+              <input id="siteName" type="text" name="site" placeholder="Name"><br>
+  
+              <label for="siteURL">Site:</label>
+              <input id="siteURL" type="text" name="siteURL" required placeholder="https://"><br>
+  
+              <label for="description">Description:</label><br>
+              <textarea name="description" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
+              <div id="rating" class="rating">
+                <span><input type="radio" name="rating" id="str5" value="5" required><label for="str5">5</label></span>
+                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">4</label></span>
+                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">3</label></span>
+                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">2</label></span>
+                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">1</label></span>
+              </div>
+            </fieldset>
+         </form>
+  
+        </div class="linkRemove"> 
+              <button id="cancel">Cancel</button>
               <button id="addBookmark">Add Bookmark</button>
-            
         </div>
 
 
     </div>
   
   </body>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
-  <script src="/scripts/adding.js" type="module"></script>
-  <script src="/scripts/api.js" type="module"></script>
+  
 </html>

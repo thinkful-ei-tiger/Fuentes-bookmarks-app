@@ -2,40 +2,40 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="icon" href="/src/images/bookmark.png">
     <title>Bookmarks</title>
-    <link href="main.css" rel="stylesheet">
   </head>
   <body>
 
+ 
     <h1>Bookmarks</h1>
     <div>
         
         <div>
-            <button><a href="/addBookmark.html">ADD</a></button>
+            <button id="adding">ADD</button>
             <select class="bookmark-select" id="filter">
                 <option value="Filter">Filter By</option>
-                <option value="A-Z">A - Z</option>
-                <option value="Z-A">Z -A</option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
                 <option value="rating">Rating</option>
             </select>
         </div>
+        <div id="formContainer">
+          
+        </div>
+
 
         <div id="listContainer" class="listContainer">
             <div id="bookmarkList" class="listDisplay">
-                <ul>
-
-                </ul>
+              
             </div>
         </div>
 
 
     </div>
-  
+ 
   </body>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="/src/index.js" type="module"></script>
-  <script src="/scripts/expanded.js" type="module"></script>
 
 </html>
