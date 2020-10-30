@@ -25,11 +25,9 @@ function saveBookmark(){
     })
   })
 .then(response => response.json())
-.then(postedJson => postedJson);
-console.log(store.bookmarks);
- store.bookmarks.push(postedJson);
+.then(postedJson => {store.bookmarks.push(postedJson);
 $('#bookmarkList').html(posted.postedBookmark);
-};
+});
 
 
 
