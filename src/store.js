@@ -1,6 +1,6 @@
 const store = {
   bookmarks: [],
-  adding: true,
+  adding: false,
   error: null,
   filter: 0
 };
@@ -8,3 +8,5 @@ const store = {
 export default{
   store
 }
+
+// use store.store.bookmarks to access

@@ -3,6 +3,9 @@ div{
     align-self: center;
 }
 
+.hidden {
+  display: none;
+}
 
 .listContainer{
     width: 50%;

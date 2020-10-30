@@ -14,7 +14,7 @@ function saveBookmark(){
   let siteLink = $('#siteURL').val();
   let description = $('#description').val();
   let rating = $('input[type="radio"]:checked').val();
-  fetch(post, {
+  return fetch(post, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -25,18 +25,17 @@ function saveBookmark(){
     })
   })
 .then(response => response.json())
-.then(postedJson => {store.bookmarks.push(postedJson);
-$('#bookmarkList').html(posted.postedBookmark);
-});
-
-
-
-function showBookmarkList(){
-  fetch(get)
-  .then(response => response.json())
-  .then(getJson => console.log(getJson))
-    
+.then(postedJson => postedJson);
 }
+
+
+
+function showBookmarks(){
+  return fetch(get)
+  .then(response => response.json())
+  .then(getJson =>  store.store.bookmarks = getJson)
+  }
+  
 
 function deleteBookmarks(){
   fetch(deleteIt)
@@ -53,7 +52,7 @@ function editBookmarks() {
 
 export default{
   saveBookmark,
-  showBookmarkList,
+  showBookmarks,
   deleteBookmarks, 
-  editBookmarks
+  editBookmarks, 
 }

@@ -35,7 +35,7 @@ function generateForm(){
   <div id="formUp">
     <div id="listContainer" class="listContainer">
       <div>
-        <form>
+        <form class="addingNew">
           <fieldset>
             <legend>New Bookmark</legend>
             <label for="siteName">Site Name:</label>
@@ -57,7 +57,7 @@ function generateForm(){
           
         <div class="linkRemove"> 
             <button id="cancel">Cancel</button>
-            <button type="submit" id="addBookmark">Add Bookmark</button>
+            <button type="submit" value="submit" id="addBookmark">Add Bookmark</button>
         </div>
        </form>
 
@@ -65,37 +65,88 @@ function generateForm(){
    
 }
 
-function postedBookmark(){
-  return `<div>
-  <button id="collapse">${store.bookmarks.title}</button>
-  <button id="rated">${store.bookmarks.rating}</button>
-  <button><a href=${store.bookmarks.url} target="_blank"></a></button>
-  <p>${store.bookmarks.desc}</p>
-  </div>`;
+function bookmarkList(){
+
+  add.showBookmarks()
+  .then(function () {
+    render();
+  })
+  }
+
+
+function bookmarkDelete(){
+  add.deleteBookmarks();
 }
 
-
- /*
+/*
 =====================================================================
 EVENT LISTENERS
 =====================================================================
 */
 
+function render(){
+
+  if(store.store.adding) {
+    $('#listContainer').toggleClass('hidden');
+    $('#formContainer').html(generateForm());
+    $('#formContainer').show();
+  }
+  else{
+  $('#formContainer').hide();
+  let list = store.store.bookmarks;
+  $('#bookmarkList').empty();
+  for(let i = 0; i < list.length; i++){  
+    $('#bookmarkList').append(`<div>
+    <label id="collapse">${list[i].title}</label>
+    <button id="edit">Edit</button><button id="delete">Delete</button><br>
+    <button id="rated">${list[i].rating}</button>
+    <div id="bookmarkDesc">
+    <button><a href=${list[i].url} target="_blank">Visit</a></button>
+    <p>${list[i].desc}</p>
+    </div>
+    </div>`)};
+    $('#listContainer').toggleClass('hidden');
+  }
+}
+
 function newBookmarkEvent(){
   $('#adding').on('click', function (){
-    $('#listContainer').hide();
-    $('#formContainer').html(generateForm());
+    store.store.adding = true;
+    render();
   });
-
 }
 
 function bookmarkFormSubmit(){
-  $('#formContainer').on('submit','form', function(event){
+  $('#formContainer').on('submit','.addingNew', function(event){
     event.preventDefault();
-    add.saveBookmark(event);
-    $('#listContainer').show();
+    add.saveBookmark(event)
+    .then(function (){
+      store.store.adding = false;
+      render();
+    })
+
+
   });
 }
+
+
+  // let mobiscroll.settings = {
+  //   theme: 'ios',
+  //   themeVariant: 'light'
+  // }
+
+$(function () {
+
+  $('#close-all').on('click', function () {
+      $('[data-collapsible].mbsc-collapsible-open').mobiscroll('hide');
+  });
+
+  $('#toggle-last').on('click', function () {
+      $('[data-collapsible]').eq(3).mobiscroll('toggle');
+  });
+
+});
+
 
 /*
 =====================================================================
@@ -106,6 +157,7 @@ EVENT LISTENERS BINDING
 function bindEventListeners(){ 
   newBookmarkEvent();
   bookmarkFormSubmit();
+  bookmarkDelete();
 }
 
 
@@ -119,5 +171,5 @@ export default {
   ratings, // function to get user rating of site added
   generateForm, // gets form displayed to the DOM for a new bookmark
   bindEventListeners, // binds all event listeners for use
-  postedBookmark
+  bookmarkList
 }
