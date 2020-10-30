@@ -5,3 +5,6 @@ const store = {
   filter: 0
 };
 
+export default{
+  store
+}

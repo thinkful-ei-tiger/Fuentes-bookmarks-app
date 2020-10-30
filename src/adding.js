@@ -67,10 +67,10 @@ function generateForm(){
 
 function postedBookmark(){
   return `<div>
-  <button id="collapse">${store.bookmarks.name}</button>
+  <button id="collapse">${store.bookmarks.title}</button>
   <button id="rated">${store.bookmarks.rating}</button>
-  <button><a href=${store.bookmarks.siteLink} target="_blank"></a></button>
-  <p>${store.bookmarks.description}</p>
+  <button><a href=${store.bookmarks.url} target="_blank"></a></button>
+  <p>${store.bookmarks.desc}</p>
   </div>`;
 }
 
@@ -106,7 +106,6 @@ EVENT LISTENERS BINDING
 function bindEventListeners(){ 
   newBookmarkEvent();
   bookmarkFormSubmit();
-  postedBookmark();
 }
 
 
