@@ -1,4 +1,8 @@
 
+body {
+  background-image: url('/images/leather.jpg');
+}
+
 div{
     align-self: center;
 }

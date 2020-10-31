@@ -6,26 +6,6 @@ import api from './api';
 
 /*
 =====================================================================
-Bookmark Ratings
-=====================================================================
-*/
- function ratings(){
-    $(".rating input:radio").attr("checked", false);
-    $('.rating input').on('click', function () {
-        $(".rating span").removeClass('checked');
-        $(this).parent().addClass('checked');
-    });
-
-    $('input:radio').change(
-      function(){
-        let userRating = this.value;
-    }); 
-};
-
-
-
-/*
-=====================================================================
 TEMPLATES
 =====================================================================
 */
@@ -56,7 +36,7 @@ function generateForm(){
           </fieldset>
           
         <div class="linkRemove"> 
-            <button id="cancel"><a href="index.html">Cancel</a></button>
+            <button id="cancel">Cancel</button>
             <button type="submit" value="submit" id="addBookmark">Add Bookmark</button>
         </div>
        </form>
@@ -72,6 +52,8 @@ function bookmarkList(){
     render();
   })
   }
+
+
 
 
 /*
@@ -90,18 +72,21 @@ function render(){
 
   $('#formContainer').hide();
   $('#listContainer').show();
-  api.showBookmarks(event)
-  let list = store.store.bookmarks;
-  $('#bookmarkList').empty();
+
+     let list = store.store.bookmarks;
+   
+    $('#bookmarkList').empty();
   for(let i = 0; i < list.length; i++){  
-    $('#bookmarkList').append(`<div id="${list[i].id}"> 
-    <label id="collapse">${list[i].title}</label>
-    <button id="edit">Edit</button><button id="delete">Delete</button>
-    <button id="rated">${list[i].rating}</button>
-    <div id="bookmarkDesc">
-    <button><a href=${list[i].url} target="_blank">Visit</a></button>
-    <p>${list[i].desc}</p>
-    </div>
+    $('#bookmarkList').append(`
+    <div id="${list[i].id}">
+      <span class="collapse">${list[i].title}</span>
+      <button class="edit">Edit</button>
+      <button class="delButton">Delete</button>
+      <button class="rated">${list[i].rating}</button>
+       <div class="bookmarkDesc">
+        <button><a href=${list[i].url} target="_blank">Visit</a></button>
+        <p>${list[i].desc}</p>
+       </div>
     </div>`)};
     
   }
@@ -128,7 +113,7 @@ function cancelBookmark(){
 function bookmarkFormSubmit(){
   $('#formContainer').on('submit','.addingNew', function(event){
     event.preventDefault();
-    api.saveBookmark(event)
+    api.saveBookmark()
     .then(function (){
        $(".listContainer").show();
       store.store.adding = false;
@@ -138,29 +123,60 @@ function bookmarkFormSubmit(){
 }
 
 function deleteBookmark() {
-  $('#delete').on('click', function() {
-    console.log('delete')
-    api.deleteBookmarks();
+  $('body').on('click', '.delButton', function() {
+    let id = $(this).parent().attr('id');
+    console.log(id)
+    api.deleteBookmarks(id)
+    .then(function () {
+      console.log('Still here')
+      api.showBookmarks()
+        .then(function () {
+          render()
+        })
+    })
   })
-  render();
 }
-
-  // let mobiscroll.settings = {
-  //   theme: 'ios',
-  //   themeVariant: 'light'
-  // }
 
 $(function () {
 
-  $('#close-all').on('click', function () {
-      $('[data-collapsible].mbsc-collapsible-open').mobiscroll('hide');
+  $('#name').on('click', function () {
+      $('#information').mobiscroll('hide');
   });
 
-  $('#toggle-last').on('click', function () {
-      $('[data-collapsible]').eq(3).mobiscroll('toggle');
+  $('#name').on('click', function () {
+      $('[data-collapsible]').eq(0).mobiscroll('toggle');
   });
 
 });
+
+
+
+
+/*
+=====================================================================
+BOOKMARK RATINGS AND FILTER
+=====================================================================
+*/
+function ratings(){
+  $(".rating input:radio").attr("checked", false);
+  $('.rating input').on('click', function () {
+      $(".rating span").removeClass('checked');
+      $(this).parent().addClass('checked');
+  });
+
+  $('input:radio').change(
+    function(){
+      let userRating = this.value;
+  }); 
+};
+
+
+// function filterBy(){
+//   let selected = $('#filter');
+//   let results = selected.options[selected.selectedIndex].value;
+//   console.log(results);
+// }
+
 
 
 /*
@@ -175,6 +191,8 @@ function bindEventListeners(){
   bookmarkFormSubmit();
   deleteBookmark();
   cancelBookmark();
+  ratings();
+  // filterBy();
 }
 
 
@@ -185,7 +203,6 @@ EXPORT DEFAULT
 */
 
 export default { 
-  ratings, // function to get user rating of site added
   generateForm, // gets form displayed to the DOM for a new bookmark
   bindEventListeners, // binds all event listeners for use
   bookmarkList

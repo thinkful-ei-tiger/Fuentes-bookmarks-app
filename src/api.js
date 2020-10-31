@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { error } from 'jquery';
 import store from './store';
 import posted from './adding';
 
@@ -25,7 +25,8 @@ function saveBookmark(){
     })
   })
 .then(response => response.json())
-.then(postedJson => console.log(postedJson));
+.then(postedJson => store.store.bookmarks.push(postedJson))
+.catch(error => alert('Something went wrong, try again.'));
 }
 
 
@@ -38,11 +39,10 @@ function showBookmarks(){
   
 
 function deleteBookmarks(id){
-  // get the id from the parent class, which is the div to get ID
-  fetch(`${deleteIt}/${id}`, {method: 'DELETE'})
-  .then(response => response.json())
-  .then(deleteJson => {return deleteJson});
-}
+  return fetch(`${deleteIt}${id}`, {
+    method: 'DELETE'
+  })
+ }
 
 function editBookmarks() {
   fetch(patch)
