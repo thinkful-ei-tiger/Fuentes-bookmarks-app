@@ -25,7 +25,7 @@ function saveBookmark(){
     })
   })
 .then(response => response.json())
-.then(postedJson => postedJson);
+.then(postedJson => console.log(postedJson));
 }
 
 
@@ -37,10 +37,11 @@ function showBookmarks(){
   }
   
 
-function deleteBookmarks(){
-  fetch(deleteIt)
+function deleteBookmarks(id){
+  // get the id from the parent class, which is the div to get ID
+  fetch(`${deleteIt}/${id}`, {method: 'DELETE'})
   .then(response => response.json())
-  .then(deleteJson => console.log(deleteJson));
+  .then(deleteJson => {return deleteJson});
 }
 
 function editBookmarks() {
@@ -48,7 +49,7 @@ function editBookmarks() {
   .then(response => response.json())
   .then(patchJson => console.log(patchJson));
 }
-
+// edit all at once turning it back into a form
 
 export default{
   saveBookmark,

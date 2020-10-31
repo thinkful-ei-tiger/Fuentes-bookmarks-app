@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import store from './store';
-import add from './api';
+import api from './api';
 
 
 
@@ -56,7 +56,7 @@ function generateForm(){
           </fieldset>
           
         <div class="linkRemove"> 
-            <button id="cancel">Cancel</button>
+            <button id="cancel"><a href="index.html">Cancel</a></button>
             <button type="submit" value="submit" id="addBookmark">Add Bookmark</button>
         </div>
        </form>
@@ -67,16 +67,12 @@ function generateForm(){
 
 function bookmarkList(){
 
-  add.showBookmarks()
+  api.showBookmarks()
   .then(function () {
     render();
   })
   }
 
-
-function bookmarkDelete(){
-  add.deleteBookmarks();
-}
 
 /*
 =====================================================================
@@ -87,31 +83,44 @@ EVENT LISTENERS
 function render(){
 
   if(store.store.adding) {
-    $('#listContainer').toggleClass('hidden');
     $('#formContainer').html(generateForm());
     $('#formContainer').show();
   }
   else{
+
   $('#formContainer').hide();
+  $('#listContainer').show();
+  api.showBookmarks(event)
   let list = store.store.bookmarks;
   $('#bookmarkList').empty();
   for(let i = 0; i < list.length; i++){  
-    $('#bookmarkList').append(`<div>
+    $('#bookmarkList').append(`<div id="${list[i].id}"> 
     <label id="collapse">${list[i].title}</label>
-    <button id="edit">Edit</button><button id="delete">Delete</button><br>
+    <button id="edit">Edit</button><button id="delete">Delete</button>
     <button id="rated">${list[i].rating}</button>
     <div id="bookmarkDesc">
     <button><a href=${list[i].url} target="_blank">Visit</a></button>
     <p>${list[i].desc}</p>
     </div>
     </div>`)};
-    $('#listContainer').toggleClass('hidden');
+    
   }
 }
+
+
 
 function newBookmarkEvent(){
   $('#adding').on('click', function (){
     store.store.adding = true;
+    $('#listContainer').hide();
+    render();
+  });
+}
+
+function cancelBookmark(){
+  $('#cancel').on('click', function (){
+    // store.store.adding = true;
+    // $('#listContainer').hide();
     render();
   });
 }
@@ -119,16 +128,22 @@ function newBookmarkEvent(){
 function bookmarkFormSubmit(){
   $('#formContainer').on('submit','.addingNew', function(event){
     event.preventDefault();
-    add.saveBookmark(event)
+    api.saveBookmark(event)
     .then(function (){
+       $(".listContainer").show();
       store.store.adding = false;
-      render();
+      render()
     })
-
-
   });
 }
 
+function deleteBookmark() {
+  $('#delete').on('click', function() {
+    console.log('delete')
+    api.deleteBookmarks();
+  })
+  render();
+}
 
   // let mobiscroll.settings = {
   //   theme: 'ios',
@@ -155,9 +170,11 @@ EVENT LISTENERS BINDING
 */
 
 function bindEventListeners(){ 
+  // addBookmark();
   newBookmarkEvent();
   bookmarkFormSubmit();
-  bookmarkDelete();
+  deleteBookmark();
+  cancelBookmark();
 }
 
 
