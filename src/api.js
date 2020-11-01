@@ -1,6 +1,5 @@
-import $, { error } from 'jquery';
+import $ from 'jquery';
 import store from './store';
-import posted from './adding';
 
   let BASE_URL = 'https://thinkful-list-api.herokuapp.com';
   let get = `${BASE_URL}/Lili/bookmarks`;
@@ -8,6 +7,11 @@ import posted from './adding';
   let patch = `${BASE_URL}/Lili/bookmarks/`;
   let deleteIt = `${BASE_URL}/Lili/bookmarks/`;
 
+/*
+=====================================================================
+POST
+=====================================================================
+*/
 
 function saveBookmark(){
   let name = $('#siteName').val();
@@ -29,14 +33,24 @@ function saveBookmark(){
 .catch(error => alert('Something went wrong, try again.'));
 }
 
-
+/*
+=====================================================================
+GET
+=====================================================================
+*/
 
 function showBookmarks(){
   return fetch(get)
   .then(response => response.json())
   .then(getJson =>  store.store.bookmarks = getJson)
+  .catch(error => alert('Something went wrong, try again.'));
   }
-  
+
+/*
+=====================================================================
+DELETE
+=====================================================================
+*/
 
 function deleteBookmarks(id){
   return fetch(`${deleteIt}${id}`, {
@@ -44,12 +58,34 @@ function deleteBookmarks(id){
   })
  }
 
-function editBookmarks() {
-  fetch(patch)
+/*
+=====================================================================
+PATCH
+=====================================================================
+*/
+ 
+function editBookmarks(id, name, rating, description) {
+
+  fetch(patch + id, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "title": name,
+      "desc": description,
+      "rating": rating
+    })
+  })
   .then(response => response.json())
-  .then(patchJson => console.log(patchJson));
+  .then(patchJson => console.log(patchJson))
+  .catch(error => alert('Something went wrong, try again.'));
 }
-// edit all at once turning it back into a form
+
+
+/*
+=====================================================================
+EXPORTING
+=====================================================================
+*/
 
 export default{
   saveBookmark,

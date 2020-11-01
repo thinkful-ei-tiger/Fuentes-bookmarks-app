@@ -11,9 +11,9 @@ TEMPLATES
 */
 
 function generateForm(){
-  return `<h1>New Bookmark</h1>
+  return `<h2>New Bookmark</h2>
   <div id="formUp">
-    <div id="listContainer" class="listContainer">
+    <div id="listContainer" class="listContainer listDisplay">
       <div>
         <form class="addingNew">
           <fieldset>
@@ -36,8 +36,8 @@ function generateForm(){
           </fieldset>
           
         <div class="linkRemove"> 
-            <button id="cancel">Cancel</button>
-            <button type="submit" value="submit" id="addBookmark">Add Bookmark</button>
+            <a href="/"><img src="/src/images/cancel.png" id="cancel"></img></a>
+            <button type="submit" value="submit" id="addBookmark">Add</button>
         </div>
        </form>
 
@@ -45,15 +45,42 @@ function generateForm(){
    
 }
 
-function bookmarkList(){
+function addToList(){
+  let list = store.store.bookmarks;
+  for(let i = 0; i < list.length; i++){  
+    $('#bookmarkList').append(`
+    <div id="${list[i].id}" class="listItems">
+      <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
+      <span class="stars" contenteditable="false"><img src="/src/images/rating.png"></img><b>${list[i].rating}</b></span>
+      <div class="moveRight">
+        <img src='/src/images/pen.png' class="edit"></img>
+        <img src='/src/images/delete.png' class="delButton"></img>
+        <button class="hidden save">SAVE</button>
+      </div>
+      <div class="editing">
+        <p class="hidden description" contenteditable="false">${list[i].desc}<br>
+        <a href=${list[i].url} target="_blank"><img src='/src/images/visit.png'/></a></p>
+      </div>
+    </div>`)};
+}
 
+
+// function ratingValue() {
+//   let val = $('span.stars').attr('id');
+//   for(let i = 0; i < val.length; i++){
+//       // Replace the numerical value with stars
+
+//     $('span.stars').html(val);
+//   }
+  
+// }
+
+function bookmarkList(){
   api.showBookmarks()
   .then(function () {
     render();
   })
   }
-
-
 
 
 /*
@@ -62,69 +89,35 @@ EVENT LISTENERS
 =====================================================================
 */
 
-function render(){
-
-  if(store.store.adding) {
-    $('#formContainer').html(generateForm());
-    $('#formContainer').show();
-  }
-  else{
-
-  $('#formContainer').hide();
-  $('#listContainer').show();
-
-     let list = store.store.bookmarks;
-   
-    $('#bookmarkList').empty();
-  for(let i = 0; i < list.length; i++){  
-    $('#bookmarkList').append(`
-    <div id="${list[i].id}">
-      <span class="collapse">${list[i].title}</span>
-      <button class="edit">Edit</button>
-      <button class="delButton">Delete</button>
-      <button class="rated">${list[i].rating}</button>
-       <div class="bookmarkDesc">
-        <button><a href=${list[i].url} target="_blank">Visit</a></button>
-        <p>${list[i].desc}</p>
-       </div>
-    </div>`)};
-    
-  }
-}
-
-
 
 function newBookmarkEvent(){
   $('#adding').on('click', function (){
     store.store.adding = true;
     $('#listContainer').hide();
+    $('#beginning').hide()
     render();
   });
 }
 
-function cancelBookmark(){
-  $('#cancel').on('click', function (){
-    // store.store.adding = true;
-    // $('#listContainer').hide();
-    render();
-  });
-}
 
 function bookmarkFormSubmit(){
   $('#formContainer').on('submit','.addingNew', function(event){
     event.preventDefault();
     api.saveBookmark()
     .then(function (){
-       $(".listContainer").show();
+       $('.listContainer').show();
+       $('.beginning').show();
+       $('.filler').hide();
       store.store.adding = false;
       render()
     })
   });
 }
 
+
 function deleteBookmark() {
-  $('body').on('click', '.delButton', function() {
-    let id = $(this).parent().attr('id');
+  $('body').on('click', '.delButton', function(event) {
+    let id = $(event.target).closest('.listItems').attr('id');
     console.log(id)
     api.deleteBookmarks(id)
     .then(function () {
@@ -137,19 +130,43 @@ function deleteBookmark() {
   })
 }
 
-$(function () {
 
-  $('#name').on('click', function () {
-      $('#information').mobiscroll('hide');
-  });
-
-  $('#name').on('click', function () {
-      $('[data-collapsible]').eq(0).mobiscroll('toggle');
-  });
-
-});
+function showDescription(){
+  $('body').on('click', '.nameTitle', function (event) {
+    let item = $(event.target).closest('.listItems').find('p');
+    item.toggleClass('hidden');
+  })
+}
 
 
+function editBookmark() {
+  $('body').on('click', '.edit', function() {
+    console.log('clicked');
+    $(this).siblings('.save').show();
+    $(this).parent().siblings('.nameTitle').attr('contenteditable', 'true');
+    $(this).parent().siblings('.stars').attr('contenteditable', 'true');
+    $(this).parent().siblings('.editing').find('.description').attr('contenteditable', 'true');
+  })
+}
+
+
+function saveEditBookmark() {
+  $('body').on('click', '.save', function() {
+    console.log('works');
+    $(this).hide();
+
+    let name = $(this).parent().siblings('.nameTitle');
+    let rating = $(this).parent().siblings('.stars');
+    let description = $(this).parent().siblings('.editing').find('.description');
+    let id = $(this).parents('.listItems').attr('id');
+
+    name.attr('contenteditable', 'false');
+    rating.attr('contenteditable', 'false');
+    description.attr('contenteditable', 'false');
+
+   api.editBookmarks(id, name.text(), rating.text(), description.text());
+  })
+}
 
 
 /*
@@ -171,12 +188,46 @@ function ratings(){
 };
 
 
+
+/* <option value="A-Z">A-Z</option>
+<option value="Z-A">Z-A</option>
+<option value="newest">Newest</option>
+<option value="oldest">Oldest</option>
+<option value="rating">Rating</option> */
+
+
 // function filterBy(){
 //   let selected = $('#filter');
 //   let results = selected.options[selected.selectedIndex].value;
-//   console.log(results);
+//   
+//
+//
+//
+//
+// console.log(results);
 // }
 
+
+/*
+=====================================================================
+RENDER
+=====================================================================
+*/
+
+
+function render(){
+
+  if(store.store.adding) {
+    $('#formContainer').html(generateForm());
+    $('#formContainer').show();
+  }
+  else{
+  $('#formContainer').hide();
+  $('#listContainer').show();
+  $('#bookmarkList').empty();
+  addToList();
+  }
+}
 
 
 /*
@@ -186,12 +237,14 @@ EVENT LISTENERS BINDING
 */
 
 function bindEventListeners(){ 
-  // addBookmark();
   newBookmarkEvent();
   bookmarkFormSubmit();
   deleteBookmark();
-  cancelBookmark();
   ratings();
+  showDescription();
+  editBookmark();
+  saveEditBookmark();
+  // ratingValue();
   // filterBy();
 }
 

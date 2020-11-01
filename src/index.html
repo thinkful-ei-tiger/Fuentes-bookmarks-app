@@ -3,26 +3,30 @@
   <head>
     <meta charset="utf-8">
     <link rel="icon" href="/src/images/bookmark.png">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    
     <title>Bookmarks</title>
   </head>
   <body>
 
  
-    <h1>Bookmarks</h1>
-    <div>
-        
-        <div>
-            <button id="adding">ADD</button>
-            <select name="filter" class="bookmark-select" id="filter">
-                <option value="Filter">Filter By</option>
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="rating">Rating</option>
-            </select>
-        </div>
-        <div id="formContainer">
+    <h1>Save 'Em</h1>
+
+    <div id="beginning" class="beginning"> 
+      
+      <h2 id="adding" class="initialAdd">ADD</h2>
+      <div class="moveOverMore">
+        <select name="filter" class="bookmark-select" id="filter">
+          <option value="Filter">Filter By</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>  
+    </div>  
+      <div id="formContainer">
           
         </div>
 
@@ -30,11 +34,17 @@
         <div id="listContainer" class="listContainer">
             <div id="bookmarkList" class="listDisplay">
               
+              <div class="listItems">
+                  <div class="filler">
+                    <p><b>Nothing saved yet ......</b></p>
+                  </div>
+                <div>
+
             </div>
         </div>
 
 
-    </div>
+    
  
   </body>
 
