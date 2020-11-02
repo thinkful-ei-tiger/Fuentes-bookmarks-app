@@ -10,6 +10,44 @@ TEMPLATES
 =====================================================================
 */
 
+function startUpPage(){
+  $('main').html(`    
+  <h1>Save 'Em</h1>
+
+  <div id="beginning" class="beginning"> 
+    
+    <h2 id="adding" class="initialAdd">ADD</h2>
+    <div class="moveOverMore">
+      <select id="filter" class="bookmark-select" id="filter">
+        <option value="" >Rating</option>
+        <option value="5">5</option>
+        <option value="4">4+</option>
+        <option value="3">3+</option>
+        <option value="2">2+</option>
+        <option value="1" >1+</option>
+      </select>
+    </div>  
+  </div>  
+    <div id="formContainer" class="formContainer hidden">
+        
+      </div>
+
+
+      <div id="listContainer" class="listContainer">
+          <div id="bookmarkList" class="listDisplay">
+            
+            <div class="listItems">
+                <div class="filler">
+                  <p><b>Nothing saved yet ......</b></p>
+                </div>
+              <div>
+
+          </div>
+      </div>`);
+}
+
+
+
 function generateForm(){
   return `<h2>New Bookmark</h2>
   <div id="formUp">
@@ -36,7 +74,7 @@ function generateForm(){
           </fieldset>
           
         <div class="linkRemove"> 
-            <a href="/"><img src="/src/images/cancel.png" id="cancel"></img></a>
+            <img src="/src/images/cancel.png" id="cancel"/>
             <button type="submit" value="submit" id="addBookmark">Add</button>
         </div>
        </form>
@@ -51,10 +89,10 @@ function addToList(){
     $('#bookmarkList').append(`
     <div id="${list[i].id}" class="listItems">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
-      <span class="stars" contenteditable="false"><img src="/src/images/rating.png"></img><b>${list[i].rating}</b></span>
+      <span class="stars" contenteditable="false"><img src="/src/images/rating.png"/><b>${list[i].rating}</b></span>
       <div class="moveRight">
-        <img src='/src/images/pen.png' class="edit"></img>
-        <img src='/src/images/delete.png' class="delButton"></img>
+        <img src='/src/images/pen.png' class="edit"/>
+        <img src='/src/images/delete.png' class="delButton"/>
         <button class="hidden save">SAVE</button>
       </div>
       <div class="editing">
@@ -65,22 +103,9 @@ function addToList(){
 }
 
 
-// function ratingValue() {
-//   let val = $('span.stars').attr('id');
-//   for(let i = 0; i < val.length; i++){
-//       // Replace the numerical value with stars
 
-//     $('span.stars').html(val);
-//   }
-  
-// }
 
-function bookmarkList(){
-  api.showBookmarks()
-  .then(function () {
-    render();
-  })
-  }
+
 
 
 /*
@@ -91,27 +116,40 @@ EVENT LISTENERS
 
 
 function newBookmarkEvent(){
-  $('#adding').on('click', function (){
+  $('body').on('click', '#adding', function (){
     store.store.adding = true;
-    $('#listContainer').hide();
-    $('#beginning').hide()
+    $('.listContainer').toggleClass('hidden');
+    $('#bookmarkList').toggleClass('hidden');
+    $('#beginning').toggleClass('hidden')
     render();
   });
 }
 
 
 function bookmarkFormSubmit(){
-  $('#formContainer').on('submit','.addingNew', function(event){
+  $('body').on('submit','.addingNew', function(event){
     event.preventDefault();
+    $('#formContainer').toggleClass('hidden');
     api.saveBookmark()
     .then(function (){
-       $('.listContainer').show();
-       $('.beginning').show();
-       $('.filler').hide();
+       $('.listContainer').toggleClass('hidden');
+       $('#beginning').toggleClass('hidden');
+       console.log('added');
       store.store.adding = false;
       render()
     })
   });
+}
+
+function cancelForm() {
+  $('body').on('click', '#cancel', function() {
+    console.log('cancel');
+    $('.listContainer').toggleClass('hidden');
+    $('#formContainer').toggleClass('hidden');
+    $('.beginning').show();
+    store.store.adding = false;
+    render();
+  })
 }
 
 
@@ -169,9 +207,59 @@ function saveEditBookmark() {
 }
 
 
+
+function sortBy(){
+  $('body').on('change', '.bookmark-select', function() {
+    let rating = $(this).val();
+    let sorted = store.store.bookmarks.filter( function (item) {
+      return item.rating >= rating;
+    })
+    console.log(sorted);
+    displaySorted(sorted);
+  })
+}
+
 /*
 =====================================================================
-BOOKMARK RATINGS AND FILTER
+BOOKMARK DISPLAY
+=====================================================================
+*/
+
+
+function displaySorted(store){
+  let list = store;
+  let html = '';
+  for(let i = 0; i < list.length; i++){  
+    html += `
+    <div id="${list[i].id}" class="listItems">
+      <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
+      <span class="stars" contenteditable="false"><img src="/src/images/rating.png"/><b>${list[i].rating}</b></span>
+      <div class="moveRight">
+        <img src='/src/images/pen.png' class="edit"/>
+        <img src='/src/images/delete.png' class="delButton"/>
+        <button class="hidden save">SAVE</button>
+      </div>
+      <div class="editing">
+        <p class="hidden description" contenteditable="false">${list[i].desc}<br>
+        <a href=${list[i].url} target="_blank"><img src='/src/images/visit.png'/></a></p>
+      </div>
+    </div>`};
+
+    $('#bookmarkList').html(html);
+}
+
+
+function bookmarkList(){
+  api.showBookmarks()
+  .then(function () {
+    render();
+  })
+  }
+
+
+/*
+=====================================================================
+BOOKMARK RATINGS
 =====================================================================
 */
 function ratings(){
@@ -180,32 +268,7 @@ function ratings(){
       $(".rating span").removeClass('checked');
       $(this).parent().addClass('checked');
   });
-
-  $('input:radio').change(
-    function(){
-      let userRating = this.value;
-  }); 
 };
-
-
-
-/* <option value="A-Z">A-Z</option>
-<option value="Z-A">Z-A</option>
-<option value="newest">Newest</option>
-<option value="oldest">Oldest</option>
-<option value="rating">Rating</option> */
-
-
-// function filterBy(){
-//   let selected = $('#filter');
-//   let results = selected.options[selected.selectedIndex].value;
-//   
-//
-//
-//
-//
-// console.log(results);
-// }
 
 
 /*
@@ -216,16 +279,16 @@ RENDER
 
 
 function render(){
-
+  console.log(store.store.adding);
   if(store.store.adding) {
     $('#formContainer').html(generateForm());
-    $('#formContainer').show();
+    $('#formContainer').toggleClass('hidden');
   }
   else{
-  $('#formContainer').hide();
-  $('#listContainer').show();
+  // $('#listContainer').show();
   $('#bookmarkList').empty();
   addToList();
+  $('#filter').prop('selectedIndex',0);
   }
 }
 
@@ -244,7 +307,9 @@ function bindEventListeners(){
   showDescription();
   editBookmark();
   saveEditBookmark();
-  // ratingValue();
+  sortBy();
+  cancelForm();
+  
   // filterBy();
 }
 
@@ -258,5 +323,6 @@ EXPORT DEFAULT
 export default { 
   generateForm, // gets form displayed to the DOM for a new bookmark
   bindEventListeners, // binds all event listeners for use
-  bookmarkList
+  bookmarkList,
+  startUpPage
 }

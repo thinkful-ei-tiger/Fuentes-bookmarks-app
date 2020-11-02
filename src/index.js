@@ -7,6 +7,7 @@ import adding from './adding';
 function main(){
    adding.bindEventListeners();
    adding.bookmarkList();
+   adding.startUpPage();
   }
   
   $(main);
