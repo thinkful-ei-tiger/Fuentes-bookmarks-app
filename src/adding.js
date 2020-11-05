@@ -11,95 +11,94 @@ TEMPLATES
 */
 
 function startUpPage(){
-  $('main').html(`    
+  return $('main').html(`    
   <h1>Save 'Em</h1>
 
-  <div id="beginning" class="beginning"> 
+  <section id="beginning" class="beginning"> 
     
     <h2 id="adding" class="initialAdd">ADD</h2>
-    <div class="moveOverMore">
+    <section class="bookmarkNum">
       <select id="filter" class="bookmark-select" id="filter">
-        <option value="" >Rating</option>
+        <option value="" >RATING</option>
         <option value="5">5</option>
         <option value="4">4+</option>
         <option value="3">3+</option>
         <option value="2">2+</option>
         <option value="1" >1+</option>
       </select>
-    </div>  
-  </div>  
-    <div id="formContainer" class="formContainer hidden">
+    </section>  
+  </section>  
+    <section id="formContainer" class="formContainer">
         
-      </div>
+      </section>
 
 
-      <div id="listContainer" class="listContainer">
-          <div id="bookmarkList" class="listDisplay">
+      <section id="listContainer" class="listContainer">
+          <section id="bookmarkList" class="listDisplay">
             
-            <div class="listItems">
-                <div class="filler">
-                  <p><b>Nothing saved yet ......</b></p>
-                </div>
-              <div>
+            <section class="listItems" id="filler">
+                
+                  <p class="emptyMarks hidden"><b>Nothing saved yet......</b></p>
+  
+              <section>
 
-          </div>
-      </div>`);
+          </section>
+      </section>`);
 }
 
-
-
 function generateForm(){
-  return `<h2>New Bookmark</h2>
-  <div id="formUp">
-    <div id="listContainer" class="listContainer listDisplay">
-      <div>
+  return `<h2 class="newBm">New Bookmark</h2>
+  <section id="formUp">
+    <section id="listContainer" class="listContainer listDisplay">
+      <section>
         <form class="addingNew">
           <fieldset>
             <legend>New Bookmark</legend>
             <label for="siteName">Site Name:</label>
-            <input id="siteName" type="text" name="site" placeholder="Name"><br>
+            <input id="siteName" class="boxed" type="text" name="site" placeholder="Name"><br>
 
             <label for="siteURL">Site:</label>
-            <input id="siteURL" type="text" name="siteURL" required placeholder="https://"><br>
+            <input id="siteURL" class="boxed" type="text" name="siteURL" required placeholder="https://"><br>
 
             <label for="description">Description:</label><br>
-            <textarea name="description" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
-            <div id="rating" class="rating">
-              <span><input type="radio" name="rating" id="str5" value="5" required><label for="str5">5</label></span>
-              <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">4</label></span>
-              <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">3</label></span>
-              <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">2</label></span>
-              <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">1</label></span>
-            </div>
+            <textarea name="description" class="boxed" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
+            <section id="rating" class="rating">
+              <span><input type="radio" name="rating" id="str5" value="5" required><label for="str5"></label></span>
+              <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+              <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+              <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+              <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+            </section>
           </fieldset>
           
-        <div class="linkRemove"> 
-            <img src="/src/images/cancel.png" id="cancel"/>
-            <button type="submit" value="submit" id="addBookmark">Add</button>
-        </div>
-       </form>
+          <section class="linkRemove"> 
+            <img src="/src/images/no.png" id="cancel"/>
+            <input type="image" src="/src/images/plus.png" border="0" alt="Submit" id="addBookmark"></input>
+          </section>
+        </form>
 
-  </div>`;
+  </section>`;
    
 }
+
 
 function addToList(){
   let list = store.store.bookmarks;
   for(let i = 0; i < list.length; i++){  
     $('#bookmarkList').append(`
-    <div id="${list[i].id}" class="listItems">
+    <section id="${list[i].id}" class="listItems">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
       <span class="stars" contenteditable="false"><img src="/src/images/rating.png"/><b>${list[i].rating}</b></span>
-      <div class="moveRight">
+      <section class="moveRight">
         <img src='/src/images/pen.png' class="edit"/>
         <img src='/src/images/delete.png' class="delButton"/>
-        <button class="hidden save">SAVE</button>
-      </div>
-      <div class="editing">
+        <input type="image" src="/src/images/yes.png" border="0" alt="Submit" class="hidden save"></input>
+      </section>
+      <section class="editing">
         <p class="hidden description" contenteditable="false">${list[i].desc}<br>
         <a href=${list[i].url} target="_blank"><img src='/src/images/visit.png'/></a></p>
-      </div>
-    </div>`)};
+      </section>
+    </section>`)};
 }
 
 
@@ -119,8 +118,9 @@ function newBookmarkEvent(){
   $('body').on('click', '#adding', function (){
     store.store.adding = true;
     $('.listContainer').toggleClass('hidden');
-    $('#bookmarkList').toggleClass('hidden');
-    $('#beginning').toggleClass('hidden')
+    $('.formContainer').toggleClass('hidden');
+    // $('.emptyMarks').toggleClass('hidden');
+    $('#beginning').toggleClass('hidden');
     render();
   });
 }
@@ -132,7 +132,7 @@ function bookmarkFormSubmit(){
     $('#formContainer').toggleClass('hidden');
     api.saveBookmark()
     .then(function (){
-       $('.listContainer').toggleClass('hidden');
+      //  $('#filler').toggleClass('hidden');
        $('#beginning').toggleClass('hidden');
        console.log('added');
       store.store.adding = false;
@@ -181,9 +181,10 @@ function editBookmark() {
   $('body').on('click', '.edit', function() {
     console.log('clicked');
     $(this).siblings('.save').show();
-    $(this).parent().siblings('.nameTitle').attr('contenteditable', 'true');
-    $(this).parent().siblings('.stars').attr('contenteditable', 'true');
-    $(this).parent().siblings('.editing').find('.description').attr('contenteditable', 'true');
+    $(this).parent().siblings('.nameTitle').attr('contenteditable', 'true').toggleClass('boxed');
+    $(this).parent().siblings('.stars').attr('contenteditable', 'true').toggleClass('boxed');
+    $(this).parent().siblings('.editing').find('.description').attr('contenteditable', 'true').toggleClass('boxed');
+
   })
 }
 
@@ -193,9 +194,9 @@ function saveEditBookmark() {
     console.log('works');
     $(this).hide();
 
-    let name = $(this).parent().siblings('.nameTitle');
-    let rating = $(this).parent().siblings('.stars');
-    let description = $(this).parent().siblings('.editing').find('.description');
+    let name = $(this).parent().siblings('.nameTitle').toggleClass('boxed');
+    let rating = $(this).parent().siblings('.stars').toggleClass('boxed');
+    let description = $(this).parent().siblings('.editing').find('.description').toggleClass('boxed');
     let id = $(this).parents('.listItems').attr('id');
 
     name.attr('contenteditable', 'false');
@@ -231,19 +232,19 @@ function displaySorted(store){
   let html = '';
   for(let i = 0; i < list.length; i++){  
     html += `
-    <div id="${list[i].id}" class="listItems">
+    <section id="${list[i].id}" class="listItems">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
       <span class="stars" contenteditable="false"><img src="/src/images/rating.png"/><b>${list[i].rating}</b></span>
-      <div class="moveRight">
+      <section class="moveRight">
         <img src='/src/images/pen.png' class="edit"/>
         <img src='/src/images/delete.png' class="delButton"/>
         <button class="hidden save">SAVE</button>
-      </div>
-      <div class="editing">
+      </section>
+      <section class="editing">
         <p class="hidden description" contenteditable="false">${list[i].desc}<br>
         <a href=${list[i].url} target="_blank"><img src='/src/images/visit.png'/></a></p>
-      </div>
-    </div>`};
+      </section>
+    </section>`};
 
     $('#bookmarkList').html(html);
 }
@@ -271,6 +272,19 @@ function ratings(){
 };
 
 
+
+
+// function starDisplay(){
+//   let parent    = document.getElementById('images');
+//   let imagePath = 'http://www.placehold.it/400x100';
+//   let img;
+// for (let i = 0; i <= 5; i++) {
+//     img = new Image();
+//     img.src = imagePath;
+//     parent.appendChild(img);
+// }
+// }
+
 /*
 =====================================================================
 RENDER
@@ -279,14 +293,19 @@ RENDER
 
 
 function render(){
-  console.log(store.store.adding);
+  console.log(store.store.bookmarks.length);
   if(store.store.adding) {
+    console.log('without');
     $('#formContainer').html(generateForm());
     $('#formContainer').toggleClass('hidden');
+    // $('.listItems').toggleClass('hidden');
   }
   else{
+    console.log('with');
+
+    startUpPage();
   // $('#listContainer').show();
-  $('#bookmarkList').empty();
+  // $('#bookmarkList').empty();
   addToList();
   $('#filter').prop('selectedIndex',0);
   }
@@ -309,8 +328,7 @@ function bindEventListeners(){
   saveEditBookmark();
   sortBy();
   cancelForm();
-  
-  // filterBy();
+  // starDisplay();
 }
 
 
