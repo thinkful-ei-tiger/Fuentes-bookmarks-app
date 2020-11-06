@@ -56,14 +56,14 @@ function deleteBookmarks(id){
   return fetch(`${deleteIt}${id}`, {
     method: 'DELETE'
   })
- }
+}
 
 /*
 =====================================================================
 PATCH
 =====================================================================
 */
- 
+
 function editBookmarks(id, name, rating, description) {
 
   fetch(patch + id, {

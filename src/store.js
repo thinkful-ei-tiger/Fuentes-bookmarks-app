@@ -8,5 +8,3 @@ const store = {
 export default{
   store
 }
-
-// use store.store.bookmarks to access
