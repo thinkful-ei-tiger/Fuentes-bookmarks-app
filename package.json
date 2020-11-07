@@ -1,5 +1,5 @@
 {
-  "name": "Bookmark",
+  "name": "bookmark",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thinkful-ei-tiger/bookmarkAppFuentes.git"
+    "url": "git+https://github.com/thinkful-ei-tiger/Fuentes-bookmark-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thinkful-ei-tiger/bookmarkAppFuentes/issues"
+    "url": "https://github.com/thinkful-ei-tiger/Fuentes-bookmark-app/issues"
   },
-  "homepage": "https://github.com/thinkful-ei-tiger/bookmarkAppFuentes#readme",
+  "homepage": "https://github.com/thinkful-ei-tiger/Fuentes-bookmark-app#readme",
   "dependencies": {
     "jquery": "^3.5.1"
   },

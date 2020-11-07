@@ -107,11 +107,6 @@ function addToList(){
 }
 
 
-
-
-
-
-
 /*
 =====================================================================
 EVENT LISTENERS
@@ -159,10 +154,8 @@ function cancelForm() {
 function deleteBookmark() {
   $('body').on('click', '.delButton', function(event) {
     let id = $(event.target).closest('.listItems').attr('id');
-    console.log(id)
     api.deleteBookmarks(id)
     .then(function () {
-      console.log('Still here')
       api.showBookmarks()
         .then(function () {
           render()
@@ -280,7 +273,6 @@ RENDER
 */
 
 function render(){
-  console.log(store.store.bookmarks.length);
 
   if(store.store.adding) {
     console.log('with');
@@ -288,18 +280,17 @@ function render(){
     $('#formContainer').toggleClass('hidden');
   }
   else{
-    console.log('without');
-
     startUpPage();
-  addToList();
-  $('#filter').prop('selectedIndex',0);
+    addToList();
+    $('#filter').prop('selectedIndex',0);
   }
 
   $('#listContainer').addClass('testing')
 
   if(store.store.bookmarks.length > 0) {
     $('.listContainer .emptyMarks').addClass('hidden')
-  } else {
+  } 
+  else {
     $('.listContainer .emptyMarks').removeClass('hidden')
   }
 }
