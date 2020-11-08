@@ -1,7 +1,7 @@
 
 
 body {
-  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/leatherTagged.jpg?raw=true');
+  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/leatherTagged.jpg');
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
@@ -55,7 +55,7 @@ h2.initialAdd {
   padding-top: 0px;
   padding-bottom: 0px;
   font-family: 'Architects Daughter', cursive;
-  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/letterPage.jpg?raw=true');
+  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/letterPage.jpg');
   color:black;
   font-size: 25px;
   box-shadow: 5px 5px 5px #000000;
@@ -97,7 +97,7 @@ section{
   width: 50%;
   height: auto;
   box-shadow: 5px 5px 5px #000000;
-  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/letterPage.jpg?raw=true');
+  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/letterPage.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -116,7 +116,7 @@ a {
 }
 
 .delButton {
-  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/delete.png?raw=true');
+  background-image: url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/delete.png');
 }
 
 
@@ -183,7 +183,7 @@ Bookmark Ratings
   width:50px;
   height:50px;
   text-align:center;
-  background-image:url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/rating.png?raw=true');
+  background-image:url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/rating.png');
   background-repeat: no-repeat;
   font-size:30px;
   margin-right:2px;
@@ -194,7 +194,7 @@ Bookmark Ratings
 .rating span:hover label,
 .rating span.checked label,
 .rating span.checked ~ span label {
-  background-image:url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/ratingCheck.png?raw=true');
+  background-image:url('https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/ratingCheck.png');
 }
 
 /*
