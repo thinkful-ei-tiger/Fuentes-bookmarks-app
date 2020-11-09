@@ -58,7 +58,7 @@ function generateForm(){
     <section id="listContainer" class="listContainer listDisplay">
       <section>
         <form class="addingNew">
-          <fieldset>
+          <fieldset class='deviceScaling'>
             <legend>New Bookmark</legend>
             <label for="siteName">Site Name:</label>
             <input id="siteName" class="boxed" type="text" name="site" placeholder="Name"><br>

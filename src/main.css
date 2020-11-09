@@ -218,6 +218,10 @@ Custom Scrollbar
 }
 
 
-
-
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+    .deviceScaling{
+      zoom: 0.8;
+    }
+}
 
