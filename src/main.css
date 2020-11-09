@@ -218,7 +218,7 @@ Custom Scrollbar
 }
 
 
-@media only screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   /* For mobile phones: */
     .deviceScaling{
       zoom: 0.8;
