@@ -132,7 +132,6 @@ function bookmarkFormSubmit(){
     api.saveBookmark()
     .then(function (){
       $('#beginning').toggleClass('hidden');
-      console.log('added');
       store.store.adding = false;
       render()
     })
@@ -141,7 +140,6 @@ function bookmarkFormSubmit(){
 
 function cancelForm() {
   $('body').on('click', '#cancel', function() {
-    console.log('cancel');
     $('.listContainer').toggleClass('hidden');
     $('#formContainer').toggleClass('hidden');
     $('.beginning').show();
@@ -175,7 +173,6 @@ function showDescription(){
 
 function editBookmark() {
   $('body').on('click', '.edit', function() {
-    console.log('clicked');
     $(this).siblings('.save').show();
     $(this).parent().siblings('.nameTitle').attr('contenteditable', 'true').toggleClass('boxed');
     $(this).parent().siblings('.stars').attr('contenteditable', 'true').toggleClass('boxed');
@@ -187,7 +184,6 @@ function editBookmark() {
 
 function saveEditBookmark() {
   $('body').on('click', '.save', function() {
-    console.log('works');
     $(this).hide();
 
     let name = $(this).parent().siblings('.nameTitle').toggleClass('boxed');
@@ -211,7 +207,6 @@ function sortBy(){
     let sorted = store.store.bookmarks.filter( function (item) {
       return item.rating >= rating;
     })
-    console.log(sorted);
     displaySorted(sorted);
   })
 }
@@ -275,7 +270,6 @@ RENDER
 function render(){
 
   if(store.store.adding) {
-    console.log('with');
     $('#formContainer').html(generateForm());
     $('#formContainer').toggleClass('hidden');
   }

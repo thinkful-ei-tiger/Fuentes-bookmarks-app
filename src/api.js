@@ -76,7 +76,7 @@ function editBookmarks(id, name, rating, description) {
     })
   })
   .then(response => response.json())
-  .then(patchJson => console.log(patchJson))
+  .then(patchJson => patchJson)
   .catch(error => alert('Something went wrong, try again.'));
 }
 
