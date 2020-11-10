@@ -69,11 +69,11 @@ function generateForm(){
             <label for="description">Description:</label><br>
             <textarea name="description" class="boxed" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
             <section id="rating" class="rating">
-              <span><input type="radio" name="rating" id="str5" value="5" alt="rating" required><label for="str5"></label></span>
-              <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-              <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-              <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-              <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+              <span><input type="radio" name="rating" id="str5" value="5" alt="rating" checked="checked" required><label for="str5"></label></span>
+              <span><input type="radio" name="rating" id="str4" value="4" checked="checked"><label for="str4"></label></span>
+              <span><input type="radio" name="rating" id="str3" value="3" checked="checked"><label for="str3"></label></span>
+              <span><input type="radio" name="rating" id="str2" value="2" checked="checked"><label for="str2"></label></span>
+              <span><input type="radio" name="rating" id="str1" value="1" checked="checked"><label for="str1"></label></span>
             </section>
           </fieldset>
           
