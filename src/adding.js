@@ -69,7 +69,7 @@ function generateForm(){
             <label for="description">Description:</label><br>
             <textarea name="description" class="boxed" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
             <section id="rating" class="rating">
-              <span><input type="radio" name="rating" id="str5" value="5" required><label for="str5"></label></span>
+              <span><input type="radio" name="rating" id="str5" value="5" alt="rating" required><label for="str5"></label></span>
               <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
               <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
               <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
@@ -78,7 +78,7 @@ function generateForm(){
           </fieldset>
           
           <section class="linkRemove"> 
-            <img src=${no} id="cancel"/>
+            <img src=${no} id="cancel" alt="cancel"/>
             <input type="image" src=${plus} border="0" alt="Submit" id="addBookmark"></input>
           </section>
         </form>
@@ -93,15 +93,15 @@ function addToList(){
     $('#bookmarkList').append(`
     <section id="${list[i].id}" class="listItems">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
-      <span class="stars" contenteditable="false"><img src=${rating} /><b>${list[i].rating}</b></span>
+      <span class="stars" contenteditable="false"><img src=${rating} alt="rating" /><b>${list[i].rating}</b></span>
       <section class="moveRight">
-        <img src=${pen} class="edit"/>
-        <img src=${deleteIt} class="delButton"/>
-        <input type="image" src=${checked} border="0" alt="Submit" class="hidden save"></input>
+        <img src=${pen} class="edit" alt="edit"/>
+        <img src=${deleteIt} class="delButton" alt="delete"/>
+        <input type="image" src=${checked} border="0" alt="Submit" class="hidden save" alt="save"></input>
       </section>
       <section class="editing">
         <p class="hidden description" contenteditable="false">${list[i].desc}<br>
-        <a href=${list[i].url} target="_blank"><img src=${visit} /></a></p>
+        <a href=${list[i].url} target="_blank"><img src=${visit} alt="visit"/></a></p>
       </section>
     </section>`)};
 }
@@ -224,15 +224,15 @@ function displaySorted(store){
     html += `
     <section id="${list[i].id}" class="listItems">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
-      <span class="stars" contenteditable="false"><img src=${rating}/><b>${list[i].rating}</b></span>
+      <span class="stars" contenteditable="false"><img src=${rating} alt="rating"/><b>${list[i].rating}</b></span>
       <section class="moveRight">
-        <img src=${pen} class="edit"/>
-        <img src=${deleteIt} class="delButton"/>
+        <img src=${pen} class="edit" alt="edit"/>
+        <img src=${deleteIt} class="delButton" alt="delete"/>
         <button class="hidden save">SAVE</button>
       </section>
       <section class="editing">
         <p class="hidden description" contenteditable="false">${list[i].desc}<br>
-        <a href=${list[i].url} target="_blank"><img src=${visit}/></a></p>
+        <a href=${list[i].url} target="_blank"><img src=${visit} alt="visit"/></a></p>
       </section>
     </section>`};
 
