@@ -78,7 +78,7 @@ function generateForm(){
           </fieldset>
           
           <section class="linkRemove"> 
-            <img src=${no} id="cancel" alt="cancel"/>
+            <img src=${no} id="cancel" alt="cancel" />
             <input type="image" src=${plus} border="0" alt="Submit" id="addBookmark"></input>
           </section>
         </form>
