@@ -80,7 +80,6 @@ function editBookmarks(id, name, rating, description) {
   .catch(error => alert('Something went wrong, try again.'));
 }
 
-
 /*
 =====================================================================
 EXPORTING

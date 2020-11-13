@@ -52,6 +52,7 @@ function startUpPage(){
       </section>`);
 }
 
+
 function generateForm(){
   return `<h2 class="newBm">New Bookmark</h2>
   <section id="formUp">
@@ -61,19 +62,19 @@ function generateForm(){
           <fieldset class='deviceScaling'>
             <legend>New Bookmark</legend>
             <label for="siteName">Site Name:</label>
-            <input id="siteName" class="boxed" type="text" name="site" placeholder="Name"><br>
+            <input id="siteName" class="newBox" type="text" name="site" placeholder="Name" required><br>
 
             <label for="siteURL">Site:</label>
-            <input id="siteURL" class="boxed" type="text" name="siteURL" required placeholder="https://"><br>
+            <input id="siteURL" class="newBox" type="text" name="siteURL" required placeholder="https://"><br>
 
             <label for="description">Description:</label><br>
-            <textarea name="description" class="boxed" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
+            <textarea name="description" class="newBox" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
             <section id="rating" class="rating">
-              <span><input type="radio" name="rating" id="str5" value="5" alt="rating" checked="checked" required><label for="str5"></label></span>
-              <span><input type="radio" name="rating" id="str4" value="4" checked="checked"><label for="str4"></label></span>
-              <span><input type="radio" name="rating" id="str3" value="3" checked="checked"><label for="str3"></label></span>
-              <span><input type="radio" name="rating" id="str2" value="2" checked="checked"><label for="str2"></label></span>
-              <span><input type="radio" name="rating" id="str1" value="1" checked="checked"><label for="str1"></label></span>
+              <label ><input type="radio" name="rating" id="str1" value="1" checked="checked" required><span for="str1" class="number">1</span></label>
+              <label ><input type="radio" name="rating" id="str2" value="2" checked="checked"><span for="str2" class="number">2</span></label>
+              <label ><input type="radio" name="rating" id="str3" value="3" checked="checked"><span for="str3" class="number">3</span></label>
+              <label ><input type="radio" name="rating" id="str4" value="4" checked="checked"><span for="str4" class="number">4</span></label>
+              <label ><input type="radio" name="rating" id="str5" value="5" checked="checked"><span for="str5" class="number">5</span></label>
             </section>
           </fieldset>
           
@@ -113,7 +114,6 @@ EVENT LISTENERS
 =====================================================================
 */
 
-
 function newBookmarkEvent(){
   $('body').on('click', '#adding', function (){
     store.store.adding = true;
@@ -123,7 +123,6 @@ function newBookmarkEvent(){
     render();
   });
 }
-
 
 function bookmarkFormSubmit(){
   $('body').on('submit','.addingNew', function(event){
@@ -148,7 +147,6 @@ function cancelForm() {
   })
 }
 
-
 function deleteBookmark() {
   $('body').on('click', '.delButton', function(event) {
     let id = $(event.target).closest('.listItems').attr('id');
@@ -162,14 +160,12 @@ function deleteBookmark() {
   })
 }
 
-
 function showDescription(){
   $('body').on('click', '.nameTitle', function (event) {
     let item = $(event.target).closest('.listItems').find('p');
     item.toggleClass('hidden');
   })
 }
-
 
 function editBookmark() {
   $('body').on('click', '.edit', function() {
@@ -180,7 +176,6 @@ function editBookmark() {
 
   })
 }
-
 
 function saveEditBookmark() {
   $('body').on('click', '.save', function() {
@@ -198,8 +193,6 @@ function saveEditBookmark() {
   api.editBookmarks(id, name.text(), rating.text(), description.text());
   })
 }
-
-
 
 function sortBy(){
   $('body').on('change', '.bookmark-select', function() {
@@ -238,7 +231,6 @@ function displaySorted(store){
 
     $('#bookmarkList').html(html);
 }
-
 
 function bookmarkList(){
   api.showBookmarks()

@@ -59,7 +59,17 @@ h2.initialAdd {
   border-style: double;
   border-color: #000000;
   border-radius: 10px;
-  color: whitesmoke;
+  color: rgb(255, 0, 0);
+  background-color: #00000000;
+  font-family: "Architects Daughter", cursive;
+}
+
+.newBox {
+  border: 2px;
+  border-style: double;
+  border-color: #000000;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
   background-color: #000000;
   font-family: "Architects Daughter", cursive;
 }
@@ -146,37 +156,32 @@ Bookmark Ratings
 =====================================================================
 */
 
-
-.rating span {
-  float: right;
-  position: relative;
-}
-
-.rating span input {
+.rating label input {
   position: absolute;
   top: 0px;
   left: 0px;
   opacity: 0;
 }
 
-.rating span label {
+.rating label span {
   display: inline-block;
   width: 50px;
   height: 50px;
   text-align: center;
   background-image: url("https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/rating.png?raw=true");
   background-repeat: no-repeat;
+  color: rgba(0, 0, 0, 0);
   font-size: 30px;
   margin-right: 2px;
   line-height: 30px;
-}
+} 
 
-.rating span:hover ~ span label,
-.rating span:hover label,
-.rating span.checked label,
-.rating span.checked ~ span label {
+.rating label:hover ~ span label,
+.rating label:hover span,
+.rating input:checked ~ .number{
   background-image: url("https://github.com/thinkful-ei-tiger/Fuentes-bookmarks-app/blob/master/src/images/ratingCheck.png?raw=true");
 }
+
 
 /*
 =====================================================================
