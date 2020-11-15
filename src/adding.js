@@ -40,7 +40,7 @@ function startUpPage(){
 
 
       <section id="listContainer" class="listContainer">
-          <section id="bookmarkList" class="listDisplay">
+          <section id="bookmarkList" class="listDisplay" tabindex="0">
             
             <section class="listItems" id="filler">
                 
@@ -92,7 +92,7 @@ function addToList(){
   let list = store.store.bookmarks;
   for(let i = 0; i < list.length; i++){  
     $('#bookmarkList').append(`
-    <section id="${list[i].id}" class="listItems">
+    <section id="${list[i].id}" class="listItems" tabindex="0">
       <span class="nameTitle collapse" contenteditable="false"><b>${list[i].title}</b></span>
       <span class="stars" contenteditable="false"><img src=${rating} alt="rating" /><b>${list[i].rating}</b></span>
       <section class="moveRight">
