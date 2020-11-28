@@ -65,7 +65,7 @@ function generateForm(){
             <input id="siteName" class="newBox" type="text" name="site" placeholder="Name" required><br>
 
             <label for="siteURL">Site:</label>
-            <input id="siteURL" class="newBox" type="text" name="siteURL" required placeholder="https://"><br>
+            <input id="siteURL" class="newBox" type="url" name="siteURL" pattern="https://.*" required placeholder="https://"><br>
 
             <label for="description">Description:</label><br>
             <textarea name="description" class="newBox" id="description" cols="30" rows="10" placeholder="Site Description"></textarea><br><br>
